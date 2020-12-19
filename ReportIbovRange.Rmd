@@ -103,9 +103,9 @@ The objective here is to train a machine learning algorithm that makes predictio
 
 ## 1.1 Data Set
 
-The ibov dataset was compiled by me according to the needs of the project. The information used is available on the website of B3, the company that manages the stock exchange, on the investing.com platform and on BCB website (Central Bank of Brazil) using IBGE (Brazilian Institute of Geography and Statistics), FGV (Getúlio Vargars Foundation), CNI (Nacional Confederation of Industry) and Fecomercio (São Paulo State Commerce Federation) as a source. At the end of report, links will be available.
+The ibov dataset was compiled by me according to the needs of the project. The information used is available on the website of B3, the company that manages the stock exchange, on the investing.com platform and on BCB website (Central Bank of Brazil) using IBGE (Brazilian Institute of Geography and Statistics), FGV (Getúlio Vargas Foundation), CNI (Nacional Confederation of Industry) and Fecomercio (São Paulo State Commerce Federation) as a source. At the end of report, links will be available.
 
-The first step was to observe the index 's companies and understand their weight. Below we can see that, with a total of `r nrow(ict)` companies, the top 20 represent `r max(ic$accum)*100`% of total. 
+The first step was to observe the index's companies and understand their weight. Below we can see that, with a total of `r nrow(ict)` companies, the top 20 represent `r max(ic$accum)*100`% of total. 
 
 ```{r ibovespa composition, echo=FALSE}
 #shows the table
@@ -117,18 +117,18 @@ Analyzing these 20 companies closely, 4 are banks, a holding company with a larg
 Based on these characteristics, the following were chosen as predictors:
 
 * DI - interbank deposit (interest rate resulting from negotiations between banks).
-* SLEIC - basic interest rate determined by the BCB.
+* SELIC - basic interest rate determined by the BCB.
 * Exchange rate between USD / BRL and EUR / BRL
 * Economic performance indicators:
   * IECI - Industrial Entrepreneur Confidence Index,
   * CCI - Consumer Confidence Index, 
-  * IPCA & IGPM - price inflation indices. Columns were created with accumulated indexes.
-  * Industry Activity Index and
+  * IPCA & IGPM - price inflation indices with columns created with accumulated indexes,
+  * Industry Activity Index and,
   * Unemployment rate.
 
 As Ibovespa's largest company, with a `r min(ic$accum)*100`% stake, is a big iron ore exporter, TIOc1 values (future iron market) is in dataset. In addition, 2 of the top 6 shares represent Petrobras, an oil company, so WTI values (future oil market) was also collected to try to explain the São Paulo stock index behavior.
 
-Investors are globalized and B3 receives investments from all over the world. I understood that it is important to compare the Ibovespa movement with the main stock exchanges in the world. those used in the study were:
+Investors are globalized and B3 receives investments from all over the world. It is important to compare the Ibovespa movement with the main stock exchanges in the world. Those used in the study were:
 
 * Nasdaq - US
 * S&P 500 - US
@@ -264,7 +264,7 @@ grid.arrange(p5, p6, ncol = 2)
 #include_graphics("figs/volume-timeline.png")
 ```
 
-We realized that the financial volume of operations was very high and, in mid-2008 it plummeted. On the logarithmic scale chart we notice that the volume shows a reaction, but with normal scale we can see that compared to the pre 2008 phase, the trading volume remains practically dead.
+We realized that the financial volume of operations was very high and, in mid-2008 it plummeted. On the logarithmic scale chart we notice that the volume shows a reaction, but with normal scale we can see that compared to pre 2008, the trading volume remains practically dead.
 
 Looking at plot, the relation between volume and index score seems obvious an inverse relation. 
 
@@ -383,7 +383,7 @@ grid.arrange(p9, p10, nrow = 2)
 #include_graphics("figs/month-days.png")
 ```
 
-We can see every day is well distributed, with 50% of the data are relatively close to the average and the median. Looking at the means closely, we notice the first month days tend to be more valued than the last ones, with major depressions around the 14th and 17th. `r round(da[1,1])` and `r round(da[2,1])`  are the top ones above the average, `r round(da[1,2])` and `r round(da[2,2])` points respectively. The worst scores are those of days `r round(da[31,1])` and `r round(da[30,1])` with `r round(da[31,2] * - 1)` and `r round(da[30,2] * - 1)` points below average. The difference between the most positive and most negative days average is `r round(da [1,2] - da [31,2])` points.
+We can see every day is well distributed, with 50% of data relatively close to the average and the median. Looking at the means closely, we notice the first month days tend to be more valued than the last ones, with major depressions around the 14th and 27th. `r round(da[1,1])` and `r round(da[2,1])`  are the top ones above the average, `r round(da[1,2])` and `r round(da[2,2])` points respectively. The worst scores are those of days `r round(da[31,1])` and `r round(da[30,1])` with `r round(da[31,2] * - 1)` and `r round(da[30,2] * - 1)` points below average. The difference between the most positive and most negative days average is `r round(da [1,2] - da [31,2])` points.
 
 \newpage
 
@@ -563,7 +563,7 @@ Inflation has many causes and consequences, it can be a sign of consumption or s
 
 Two different indices were selected for comparison.
 
-* IPCA - Acronym in Portuguese for Extended National Consumer Price Index, is calculated by IBGE and is considered the official inflation index of country. The indicator serves as a reference for Central Bank to decide Selic, measures the prices of products and services charged to families living in metropolitan regions with monthly incomes of 1 to 40 minimum wages and, the following groups are researched: food and beverages, housing, residence, clothing, transport, health and personal care, personal expenses, education and communication.
+* IPCA - Acronym in Portuguese for Extended National Consumer Price Index, is calculated by IBGE and is considered the official inflation index of country. The indicator serves as a reference for Central Bank to decide SELIC, measures the prices of products and services charged to families living in metropolitan regions with monthly incomes of 1 to 40 minimum wages and, the following groups are researched: food and beverages, housing, residence, clothing, transport, health and personal care, personal expenses, education and communication.
 
 * IGP-M - Acronym in Portuguese for General Price Index - Market, is calculated by FGV and checks wholesale prices, for the producer (60%), retail, for the consumer (30%) and in the construction sector (10%). The IGP-M is used to correct rent contracts and electricity supply prices.
 
@@ -611,7 +611,7 @@ grid.arrange(p29, p30, p31, ncol = 3)
 cors_usd_eur <- data.frame(Indicator = c("ipca", "igpm", "ipca_igpm"), Correlation = c(round(as.numeric(ibov %>% filter(!is.na(ipca_acc)) %>% summarise(cor(close, ipca_acc))), 2), round(as.numeric(ibov %>% filter(!is.na(igpm_acc)) %>% summarise(cor(close, igpm_acc))), 2), round(as.numeric(ibov %>% filter(!is.na(igpm_acc) & !is.na(ipca_acc)) %>% summarise(cor(igpm_acc, ipca_acc))), 2)))
 ```
 
-It is easy to see the correlation between the two currencies, with Ibovespa the correlation with dollar is `r round(as.numeric(ibov %>% filter(!is.na(usd)) %>% summarise(cor(close, usd))), 2)` and with euro is `r round(as.numeric(ibov %>% filter(!is.na(eur)) %>% summarise(cor(close, eur))), 2)`. We can see between 2000 and 2017 movements suggest a negative correlation, while between 2017 and 2020 they have been going together, separating again with pandemic.
+It is easy to see the high correlation between the two currencies, between Ibovespa and dollar is `r round(as.numeric(ibov %>% filter(!is.na(usd)) %>% summarise(cor(close, usd))), 2)` and with euro is `r round(as.numeric(ibov %>% filter(!is.na(eur)) %>% summarise(cor(close, eur))), 2)`. We can see between 2000 and 2017 movements suggest a negative correlation, while between 2017 and 2020 they have been going together, separating again with pandemic.
 
 We noticed correlation between Ibovesta and USD, with dollar between R\$ 1.50 and R\$ 2.70 is very negative, as well as between R\$ 4.50 and R\$ 6.00. In opposit, between R\$ 2.70 and R\$ 4.50 we have a very positive correlation. Euro had a similar behavior, but with a very positive correlation with Ibovespa between R\$ 1.50 and R\$ 2.50 and, between R\$ 3.60 and R\$ 5.00, in opposit, a negative correlation between R\$ 2.50 and R\$ 3.60 and R\$ 5.00 to more.
 
@@ -619,7 +619,7 @@ We noticed correlation between Ibovesta and USD, with dollar between R\$ 1.50 an
 
 ## 2.6 Iron & Oil
 
-Ibovespa's largest company is a steelmaker with a weight of `r round(ic[1,4]*100, 2)`% of the index, so we will analyze the impact of world future price of iron ore on São Paulo stock exchange. The second largest company among 20 largest is Petrbras, with more than 10% of importance in the index, so we will also assess the future price of oil in relation to Ibovespa. These are purchase and sale contracts for iron and oil with a future maturity. They are derivatives, but can help us to understand expectations about these commodities and how they affect the index.
+Ibovespa's largest company is a steelmaker with a weight of `r round(ic[1,4]*100, 2)`% of the index, so we will analyze the impact of world future price of iron ore on São Paulo stock exchange. The second largest company among 20 largest is Petrobras, with more than 10% of importance in the index, so we will also assess the future price of oil in relation to Ibovespa. These are purchase and sale contracts for iron and oil with a future maturity. They are derivatives, but can help us to understand expectations about these commodities and how they affect the index.
 
 ```{r iron oil plot, echo = FALSE, results = "hide", fig.align = 'center', warning = FALSE}
 #makes plots
@@ -643,7 +643,7 @@ We can see the correlation between Ibovespa and iron ore was positive while iron
 
 Looking at iron ore and index through the timeline, we notice that between 2010 and 2016 the price of iron ore fell a lot while the Ibovespa remained sideways . From 2016 to 2020, both followed an upward trend and fell sharply with the COVID-19 pandemic. 
 
-The correlation, throughout the series, between Ibovespa and iron ore is `r round(as.numeric(ibov %>% filter(!is.na(iron)) %>% summarise(cor(close, iron))), 2)` and between index and oil is `r round(as.numeric(ibov %>% filter(!is.na(wti)) %>% summarise(cor(close, wti))), 2)`, both with a small correlation with the Ibovespa.
+The correlation, throughout the series, between Ibovespa and iron ore is `r round(as.numeric(ibov %>% filter(!is.na(iron)) %>% summarise(cor(close, iron))), 2)` and between index and oil is `r round(as.numeric(ibov %>% filter(!is.na(wti)) %>% summarise(cor(close, wti))), 2)`, both small.
 
 \newpage
 
@@ -653,7 +653,7 @@ To build our forecasting model we have to choose which indicators will be used a
 
 ### 2.7.1 Dates
 
-For our prediction model, we cannot use variables that we will not have access to on a daily basis, such as the closing of the Ibovespa on the same day, for example. With that in mind we will use the Ibovespa opening. Closing, high, low and volume will be from the previous day. On international exchanges we will also use the opening values, with the exception of Asian ones where the closing values could be used due to fuser. The used values for USD, EUR, DI, WTI and iron ore will also be the opening.
+For our prediction model, we cannot use variables that we will not have access to on a daily basis, such as the closing of the Ibovespa on the same day, for example. With that in mind we will use the Ibovespa opening. Closing, high, low and volume will be from the previous day. On international exchanges we will also use the opening values, with the exception of Asian ones where the closing values could be used due to fuser. The used values for USD, EUR, DI, WTI and TIOc1 will also be the opening.
 
 The other indicators that are released monthly or quarterly will be used in their normal dates and, when doing future projections, for these data we can use Focus Report estimates, which considers the market expectations collected until the Friday before its release every Monday.
 
@@ -864,9 +864,9 @@ Decision trees are used in forecasting problems where the result is categorical 
 
 Random forests addresses the deficiencies of decision trees where the objective is to improve forecast performance and reduce instability by averaging several decision trees (a randomly constructed tree forest).
 
-The first step is packaging of bootstrap. The general idea is to generate many predictors, each using regression trees, then form a final prediction based on the average prediction for all those trees. To ensure that the individual trees are not the same, we use the bootstrap, making the individual trees randomly different. The combination of trees is the forest.
+The general idea is to generate many predictors, each using regression trees, then form a final prediction based on the average prediction for all those trees. To ensure that the individual trees are not the same, we use the bootstrap, making the individual trees randomly different. The combination of trees is the forest.
 
-We built B decision trees using the training set we refer to the adjusted models as
+We built B decision trees using the training set and refer to the adjusted models as
 $T_1, T_2, ..., T_B$. For each observation in the test set we made a prediction
 $\hat{y}_j$ using the $T_j$ tree. As we are using continuous results, the final forecast was formed with the average $\hat{y} = \frac{1}{B}\sum_{j=1}^{B}\hat{y}_j$.
 
