@@ -110,7 +110,7 @@ loess_low_accuracy <- data.frame(rmse = loess_low_accuracy, spans = spans)
 #best span
 span_l <- with(loess_low_accuracy, spans[which.min(rmse)])
 span_h <- with(loess_high_accuracy, spans[which.min(rmse)])
-#runs knn with best results
+#runs loess with best results
 fit_loess_high <- train(high ~ . -low -`high_-1` -`low_-1`, method = "gamLoess", tuneGrid = data.frame(span = span_h, degree = 1),  train_set)
 fit_loess_low <- train(low ~ . -high -`high_-1` -`low_-1`, method = "gamLoess", tuneGrid = data.frame(span = span_l, degree = 1),  train_set)
 #save(fit_loess_low, file = "rdas/fit-loess-low.rda")
