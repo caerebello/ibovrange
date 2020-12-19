@@ -958,3 +958,48 @@ kable(results1[3:4,1:6]) %>% kable_styling(bootstrap_options = "bordered", posit
 
 For future model development, early news can be used as a daily mood index, but for that it is necessary a history of news, which was an impilience at that first moment. As we achieve results that allow us to do business, another step will be to collect intraday data and calculate the probabilities on days when we do not reach high and / or low. Even if we lose high and low, we can make a profit if low is below the low minimum and high is above the high maximum, for example. With the probabilities in hand, we will choose the most profitable strategy using Monte Carlo simulation.
 
+\newpage
+
+_References and data links_
+
+https://rafalab.github.io/dsbook/
+
+http://estatisticas.cetip.com.br/astec/series_v05/paginas/lum_web_v04_10_03_consulta.asp - DI / SELIC
+
+https://www.bcb.gov.br/estatisticas/indecoreestruturacao - Industrial activty, INPC, IPCA, CCI, IECI, unemployment.
+
+https://www.macrotrends.net/2015/fed-funds-rate-historical-chart - Fed bounds.
+
+https://br.investing.com/indices/bovespa-historical-data - Ibovespa
+
+https://br.investing.com/indices/us-spx-500-historical-data - S&P 500
+
+https://br.investing.com/indices/nq-100-historical-data - Nasdaq
+
+https://br.investing.com/indices/us-30-historical-data - Dow-Jones
+
+https://br.investing.com/equities/london-stock-exchange-historical-data - LSE
+
+https://br.investing.com/indices/sse-100-historical-data -SSE
+
+https://br.investing.com/indices/japan-ni225-historical-data - Nikkei
+
+https://br.investing.com/indices/germany-30-historical-data - Dax-30
+
+https://br.investing.com/indices/euronext-100-historical-data - Euronext
+
+https://br.investing.com/currencies/eur-brl-historical-data - EUR / BRL
+
+https://br.investing.com/currencies/usd-brl-historical-data - USD / BRL
+
+minerio de ferro
+https://br.investing.com/commodities/iron-ore-62-cfr-futures-historical-data - TIOc1 (iron ore)
+
+https://br.investing.com/commodities/crude-oil-historical-data - WTI
+
+
+
+
+
+
+
